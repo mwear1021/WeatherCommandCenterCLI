@@ -1,11 +1,10 @@
-# This is a Python CLI program that will provide weather data for a user-inputted city
+# This is a Python CLI program that will provide temperature data for a user-input city
 
-# TODO. Get input from the user: "Enter city name: "
-# TODO. Build the API URL using the city and your key
-# TODO. Make the request: response = requests.get(url)
-# TODO. Convert response to JSON: data = response.json()
-# TODO. Extract specific fields like data['main']['temp']
-# TODO. Print the result: "The temp in Pittsburgh is 45°F"
+# Get input from the user: "Enter city name: "
+# Build the API URL using the city and your key
+# Make the request: response = requests.get(url)
+# Convert response to JSON: data = response.json()
+# Extract specific fields like temp, conditions, rain, etc
 
 import os
 import requests
@@ -27,11 +26,20 @@ geo_data = geo_response.json()
 if geo_data:
     lat = geo_data[0]['lat']
     lon = geo_data[0]['lon']
+    print(f"Coordinates found for {get_city}: Latitude: {lat}, Longitude: {lon}")
 else:
     print("City not found")
     exit()
 # weather url
-current_weather_url = f"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={WEATHER_KEY}"
+current_weather_url = f"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&units=imperial&appid={WEATHER_KEY}"
 
 #get API data
-response = requests.get(current_weather_url)
+weather_response = requests.get(current_weather_url)
+weather_data = weather_response.json()
+
+temp = weather_data['main']['temp'] # main is a json dictionary
+feels_like = weather_data['main']['feels_like']
+conditions = weather_data['weather'][0]['main'] # weather is a list so must index it with 0
+
+print(f"Weather conditions for {get_city}:\nCurrent temperature: {temp}°F\nFeels like: {feels_like}°F\nConditions: {conditions}")
+
