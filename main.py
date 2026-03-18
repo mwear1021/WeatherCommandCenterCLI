@@ -1,4 +1,4 @@
-# This is a Python CLI program that will provide temperature data for a user-input city
+# This is a Python CLI program that will provide weather data for a user-input city
 
 # Get input from the user: "Enter city name: "
 # Build the API URL using the city and your key
