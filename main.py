@@ -10,7 +10,7 @@ import os
 import requests
 from dotenv import load_dotenv
 load_dotenv()
-# import API key from .env
+# import API key from .env (.env part of gitignore for API key security)
 WEATHER_KEY = os.getenv('WEATHER_API_KEY')
 
 # main loop
