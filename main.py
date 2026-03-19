@@ -1,11 +1,5 @@
 # This is a Python CLI program that will provide weather data for a user-input city
 
-# Get input from the user: "Enter city name: "
-# Build the API URL using the city and your key
-# Make the request: response = requests.get(url)
-# Convert response to JSON: data = response.json()
-# Extract specific fields like temp, conditions, rain, etc
-
 import os
 import requests
 from dotenv import load_dotenv
