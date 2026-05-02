@@ -2,6 +2,7 @@
 
 import os
 import requests
+import cowsay
 from dotenv import load_dotenv
 load_dotenv()
 # import API key from .env (.env part of gitignore for API key security)
@@ -10,7 +11,8 @@ WEATHER_KEY = os.getenv('WEATHER_API_KEY')
 # main loop
 while True:
 
-    get_city = input("Enter city name or type 'exit' to quit: ")
+    cowsay.cow("Enter city name or type 'exit' to quit: ")
+    get_city = input("")
     if get_city.lower() == 'exit':
         exit()
     else:
@@ -24,9 +26,9 @@ while True:
         if geo_data:
             lat = geo_data[0]['lat']
             lon = geo_data[0]['lon']
-            print(f"Coordinates found for {get_city.title()}: Latitude: {lat}, Longitude: {lon}")
+            # cowsay.cow(f"Coordinates found for {get_city.title()}: Latitude: {lat}, Longitude: {lon}")
         else:
-            print("City not found. Please try again")
+            cowsay.dragon("City not found. Please try again")
             continue
         # weather url
         current_weather_url = f"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&units=imperial&appid={WEATHER_KEY}"
@@ -39,6 +41,6 @@ while True:
         feels_like = weather_data['main']['feels_like']
         conditions = weather_data['weather'][0]['main'] # weather is a list so must index it with 0
 
-        print(f"Weather conditions for {get_city}:\nCurrent temperature: {temp}°F\nFeels like: {feels_like}°F\nConditions: {conditions}")
+        cowsay.cow(f"Weather conditions for {get_city}:\nCurrent temperature: {temp}°F\nFeels like: {feels_like}°F\nConditions: {conditions}")
         continue
 
