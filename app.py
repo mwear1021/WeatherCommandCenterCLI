@@ -38,7 +38,7 @@ def get_weather(city):
 
 @app.route('/')
 def redirect_to_weather():
-    return redirect('/weather')
+    return redirect('/weather?city=New%20York')
 
 @app.route('/weather')
 def weather():
