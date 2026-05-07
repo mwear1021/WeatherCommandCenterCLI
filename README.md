@@ -1,16 +1,27 @@
 # Weather Command Center
 
-## Description
-A REST API that fetches and returns current weather data for a given city using the OpenWeatherMap API. Built with Flask and containerized with Docker.
+A Flask REST API that fetches and returns current weather data for a given city using the OpenWeatherMap API. Containerized with Docker and deployed on Render with a full CI/CD pipeline via GitHub Actions.
+
+**Live:** https://weathercommandcentercli.onrender.com/weather
 
 ## Features
 - Returns current temperature, feels-like temperature, and weather conditions as JSON
 - Accepts city name as a URL query parameter
-- Dockerized for easy deployment
+- Defaults to New York if no city is provided
+- Dockerized for easy local and cloud deployment
+- CI/CD pipeline with automated security scanning, linting, smoke testing, and deployment
+
+## CI/CD Pipeline
+Every push to `main` triggers a GitHub Actions workflow that:
+1. Installs dependencies
+2. Runs Bandit security scanning
+3. Runs flake8 linting
+4. Runs a smoke test against the live API
+5. Triggers a Render deploy if all checks pass
 
 ## Prerequisites
 - Python 3.12+ or Docker
-- OpenWeatherMap API key (free tier available)
+- OpenWeatherMap API key (free tier available at [openweathermap.org](https://openweathermap.org/api))
 
 ## Installation (without Docker)
 1. Clone this repository.
@@ -43,9 +54,9 @@ A REST API that fetches and returns current weather data for a given city using 
    ```
 
 ## Usage
-Once running, hit the `/weather` endpoint with a `city` query parameter:
+Hit the `/weather` endpoint with a `city` query parameter:
 ```
-http://localhost:5000/weather?city=Pittsburgh
+GET /weather?city=Pittsburgh
 ```
 
 Example response:
@@ -58,9 +69,14 @@ Example response:
 }
 ```
 
-## Setup Notes
-- Sign up for a free API key at [OpenWeatherMap](https://openweathermap.org/api)
+If no city is provided, defaults to New York:
+```
+GET /weather
+```
+
+## Security Notes
 - Never commit your `.env` file -- it is listed in `.gitignore` and `.dockerignore`
+- Bandit security scanning runs automatically on every push via GitHub Actions
 
 ## License
 This project is open source. Feel free to use and modify.
